@@ -57,7 +57,7 @@ IAM="roleName"
 
 INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_PAIR_NAME" --security-group-ids "$sg_id" --subnet-id "$SUBNET_NAME" --block-device-mappings file://BlockDeviceMappings.json --iam-instance-profile {\"Name\":\"$IAM\"} --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=\"$NewName\"},{Key=Env,Value=Prod}]" --output text --query 'Instances[0].InstanceId' --profile $3)
 
-echo $INSTANCE_ID >> InstanceId.txt
+(echo "$INSTANCE_ID" | xargs )>> InstanceId.txt
 
 done
 
